@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properti Impian - Cari Rumah Terbaik Anda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-primary: #004d7a; /* Biru Gelap - Kepercayaan */
+            --color-accent: #ff9900; /* Oranye/Emas - Aksen Properti */
+            --color-text: #333;
+            --color-background: #f4f7f6;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-light);
+        }
+
+        .navbar .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .navbar a {
+            color: var(--color-primary);
+            text-decoration: none;
+            margin-left: 25px;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Hero Section & Search Bar */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://via.placeholder.com/1500x500.png?text=Latar+Belakang+Rumah+Mewah') center/cover;
+            color: white;
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 30px auto 0;
+            box-shadow: var(--shadow-light);
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-container input, .search-container select, .search-container button {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .search-container input { flex-grow: 2; }
+        .search-container select { flex-grow: 1; }
+        
+        .search-container button {
+            background-color: var(--color-accent);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-container button:hover {
+            background-color: #e68a00;
+        }
+
+        /* Daftar Properti */
+        .property-list {
+            padding: 50px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .property-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-light);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .property-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .property-info {
+            padding: 20px;
+        }
+
+        .property-info h3 {
+            color: var(--color-primary);
+            margin-top: 0;
+        }
+
+        .price {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--color-primary);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; }
+            .hero h1 { font-size: 2em; }
+            .search-container {
+                flex-direction: column;
+            }
+            .search-container input, .search-container select, .search-container button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="navbar">
+        <div class="logo">Properti Impian</div>
+        <nav>
+            <a href="#">Beli</a>
+            <a href="#">Sewa</a>
+            <a href="#">Agen</a>
+            <a href="#">Kontak</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Temukan Hunian Ideal Anda Hari Ini</h1>
+            <p>Ribuan listing properti terbaik siap menanti Anda.</p>
+            
+            <div class="search-container">
+                <input type="text" id="lokasiInput" placeholder="Masukkan lokasi atau kata kunci...">
+                <select id="tipeProperti">
+                    <option value="all">Semua Tipe</option>
+                    <option value="rumah">Rumah</option>
+                    <option value="apartemen">Apartemen</option>
+                    <option value="tanah">Tanah</option>
+                </select>
+                <button onclick="cariProperti()">Cari Sekarang</button>
+            </div>
+        </section>
+
+        <section class="property-list" id="daftarProperti">
+            <div class="property-card" data-tipe="rumah">
+                <img src="https://via.placeholder.com/600x400.png?text=Rumah+Minimalis" alt="Rumah Minimalis">
+                <div class="property-info">
+                    <h3>Rumah Minimalis Modern</h3>
+                    <p>Lokasi: Jakarta Selatan</p>
+                    <div class="price">Rp 1.5 Miliar</div>
+                    <p>3 Kamar Tidur | 2 Kamar Mandi</p>
+                </div>
+            </div>
+
+            <div class="property-card" data-tipe="apartemen">
+                <img src="https://via.placeholder.com/600x400.png?text=Apartemen+Studio" alt="Apartemen Studio">
+                <div class="property-info">
+                    <h3>Apartemen Studio Elite</h3>
+                    <p>Lokasi: Pusat Kota Surabaya</p>
+                    <div class="price">Rp 75 Juta/Tahun</div>
+                    <p>1 Kamar Tidur | Fasilitas Lengkap</p>
+                </div>
+            </div>
+
+            <div class="property-card" data-tipe="tanah">
+                <img src="https://via.placeholder.com/600x400.png?text=Tanah+Siap+Bangun" alt="Tanah Siap Bangun">
+                <div class="property-info">
+                    <h3>Tanah Kavling Siap Bangun</h3>
+                    <p>Lokasi: Bandung Utara</p>
+                    <div class="price">Rp 500 Juta</div>
+                    <p>Luas: 200m²</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Hubungi Kami: 0812-XXXX-XXXX | Ahmad Fathullah Properti</p>
+    </footer>
+
+    <script>
+        function cariProperti() {
+            const lokasi = document.getElementById('lokasiInput').value.toLowerCase();
+            const tipe = document.getElementById('tipeProperti').value;
+            const kartuProperti = document.querySelectorAll('.property-card');
+            let hasilDitemukan = false;
+
+            kartuProperti.forEach(card => {
+                const teksProperti = card.innerText.toLowerCase();
+                const tipeData = card.getAttribute('data-tipe');
+                let tampilkan = true;
+
+                // Filter berdasarkan Lokasi/Keyword
+                if (lokasi && !teksProperti.includes(lokasi)) {
+                    tampilkan = false;
+                }
+
+                // Filter berdasarkan Tipe Properti
+                if (tipe !== 'all' && tipeData !== tipe) {
+                    tampilkan = false;
+                }
+
+                if (tampilkan) {
+                    card.style.display = 'block';
+                    hasilDitemukan = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (!hasilDitemukan) {
+                alert('Properti dengan kriteria tersebut tidak ditemukan.');
+            }
+        }
+    </script>
+</body>
+</html>
