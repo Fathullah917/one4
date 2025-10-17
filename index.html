@@ -3,18 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Properti Impian - Cari Rumah Terbaik Anda</title>
+    <title>Properti Impian - Ahmad Fathullah</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* --- Variabel untuk Kedua Tema --- */
         :root {
-            --color-primary: #004d7a; /* Biru Gelap - Kepercayaan */
-            --color-accent: #ff9900; /* Oranye/Emas - Aksen Properti */
-            --color-text: #333;
-            --color-background: #f4f7f6;
+            /* Light Mode (Default) */
+            --color-primary-light: #004d7a;
+            --color-accent-light: #ff9900;
+            --color-text-light: #333;
+            --color-background-light: #f4f7f6;
+            --color-card-light: #ffffff;
             --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+            /* Dark Mode */
+            --color-primary-dark: #37b7c3;
+            --color-accent-dark: #f0c340;
+            --color-text-dark: #e0e0e0;
+            --color-background-dark: #1f1f1f;
+            --color-card-dark: #2c2c2c;
+            --shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+            /* Default menggunakan Light Mode */
+            --color-primary: var(--color-primary-light);
+            --color-accent: var(--color-accent-light);
+            --color-text: var(--color-text-light);
+            --color-background: var(--color-background-light);
+            --color-card: var(--color-card-light);
+            --shadow: var(--shadow-light);
         }
 
+        /* --- Aturan Khusus Dark Mode --- */
+        body.dark-mode {
+            background-color: var(--color-background-dark);
+            color: var(--color-text-dark);
+            /* Ganti variabel warna ke Dark Mode */
+            --color-primary: var(--color-primary-dark);
+            --color-accent: var(--color-accent-dark);
+            --color-text: var(--color-text-dark);
+            --color-background: var(--color-background-dark);
+            --color-card: var(--color-card-dark);
+            --shadow: var(--shadow-dark);
+        }
+
+        /* --- Base Styles --- */
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--color-background);
@@ -22,16 +55,18 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            transition: background-color 0.5s, color 0.5s; /* Transisi halus tema */
         }
 
         /* Navbar */
         .navbar {
-            background-color: white;
+            background-color: var(--color-card);
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: var(--shadow-light);
+            box-shadow: var(--shadow);
+            transition: background-color 0.5s, box-shadow 0.5s;
         }
 
         .navbar .logo {
@@ -53,7 +88,8 @@
 
         /* Hero Section & Search Bar */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://via.placeholder.com/1500x500.png?text=Latar+Belakang+Rumah+Mewah') center/cover;
+            /* Ganti URL gambar di sini */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://via.placeholder.com/1500x500.png?text=Latar+Belakang+Properti') center/cover;
             color: white;
             padding: 100px 5%;
             text-align: center;
@@ -65,21 +101,25 @@
         }
 
         .search-container {
-            background-color: white;
+            background-color: var(--color-card);
             padding: 20px;
             border-radius: 8px;
             max-width: 800px;
             margin: 30px auto 0;
-            box-shadow: var(--shadow-light);
+            box-shadow: var(--shadow);
             display: flex;
             gap: 10px;
+            transition: background-color 0.5s, box-shadow 0.5s;
         }
 
         .search-container input, .search-container select, .search-container button {
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--color-primary);
             border-radius: 4px;
             font-size: 1em;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            transition: background-color 0.5s, color 0.5s, border-color 0.5s;
         }
 
         .search-container input { flex-grow: 2; }
@@ -90,11 +130,10 @@
             color: white;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
         .search-container button:hover {
-            background-color: #e68a00;
+            background-color: var(--color-primary);
         }
 
         /* Daftar Properti */
@@ -106,16 +145,16 @@
         }
 
         .property-card {
-            background-color: white;
+            background-color: var(--color-card);
             border-radius: 8px;
-            box-shadow: var(--shadow-light);
+            box-shadow: var(--shadow);
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: transform 0.3s, background-color 0.5s, box-shadow 0.5s;
         }
 
         .property-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .property-card img {
@@ -147,8 +186,19 @@
             text-align: center;
             padding: 30px 0;
             margin-top: 50px;
+            transition: background-color 0.5s;
         }
-
+        
+        /* Tombol Tema */
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            font-size: 1.5em;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: transform 0.3s;
+        }
         /* Responsif */
         @media (max-width: 768px) {
             .navbar { padding: 15px 20px; }
@@ -162,15 +212,16 @@
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
     
     <header class="navbar">
         <div class="logo">Properti Impian</div>
         <nav>
-            <a href="#">Beli</a>
-            <a href="#">Sewa</a>
+            <a href="#daftar-properti-section">Beli</a>
+            <a href="#daftar-properti-section">Sewa</a>
             <a href="#">Agen</a>
             <a href="#">Kontak</a>
+            <button id="theme-toggle" aria-label="Ganti Tema">🌙</button> 
         </nav>
     </header>
 
@@ -191,7 +242,7 @@
             </div>
         </section>
 
-        <section class="property-list" id="daftarProperti">
+        <section class="property-list" id="daftar-properti-section">
             <div class="property-card" data-tipe="rumah">
                 <img src="https://via.placeholder.com/600x400.png?text=Rumah+Minimalis" alt="Rumah Minimalis">
                 <div class="property-info">
@@ -216,12 +267,12 @@
                 <img src="https://via.placeholder.com/600x400.png?text=Tanah+Siap+Bangun" alt="Tanah Siap Bangun">
                 <div class="property-info">
                     <h3>Tanah Kavling Siap Bangun</h3>
-                    <p>Lokasi: Bandung Utara</p>
+                    <p>Lokasi: Lombok Utara</p>
                     <div class="price">Rp 500 Juta</div>
                     <p>Luas: 200m²</p>
                 </div>
             </div>
-        </section>
+            </section>
     </main>
 
     <footer>
@@ -229,6 +280,27 @@
     </footer>
 
     <script>
+        // Data properti tambahan yang akan dimuat oleh JavaScript
+        const propertiTambahan = [
+            {
+                nama: "Villa Mewah Pemandangan Pantai",
+                lokasi: "Bali (Uluwatu)",
+                harga: "Rp 8 Miliar",
+                tipe: "rumah",
+                deskripsi: "4 KT | Kolam Renang Infinity",
+                gambar: "https://via.placeholder.com/600x400.png?text=Villa+Bali"
+            },
+            {
+                nama: "Lahan Komersial Strategis",
+                lokasi: "Surabaya Barat",
+                harga: "Rp 1.2 Miliar",
+                tipe: "tanah",
+                deskripsi: "Luas: 350m²",
+                gambar: "https://via.placeholder.com/600x400.png?text=Lahan+Komersial"
+            }
+        ];
+        
+        // --- 1. Fungsi Pencarian Properti ---
         function cariProperti() {
             const lokasi = document.getElementById('lokasiInput').value.toLowerCase();
             const tipe = document.getElementById('tipeProperti').value;
@@ -262,6 +334,85 @@
                 alert('Properti dengan kriteria tersebut tidak ditemukan.');
             }
         }
+        
+        // --- 2. Logika Utama DOMContentLoaded ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const daftarProperti = document.getElementById('daftar-properti-section');
+            
+            // --- 2A. Fungsionalitas Theme Toggle ---
+            function toggleTheme() {
+                // Cek apakah Dark Mode sedang aktif
+                if (body.classList.contains('dark-mode')) {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    themeToggle.textContent = '🌙'; // Ganti ikon ke Bulan
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    themeToggle.textContent = '☀️'; // Ganti ikon ke Matahari
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+
+            // Memuat tema yang terakhir disimpan
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '☀️';
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeToggle.textContent = '🌙';
+            }
+
+            // Tambahkan event listener ke tombol tema
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // --- 2B. Pemuatan Properti Tambahan Dinamis (Simulasi Backend) ---
+            function buatKartuProperti(data) {
+                const card = document.createElement('div');
+                card.className = 'property-card';
+                card.setAttribute('data-tipe', data.tipe);
+                
+                card.innerHTML = `
+                    <img src="${data.gambar}" alt="${data.nama}">
+                    <div class="property-info">
+                        <h3>${data.nama}</h3>
+                        <p>Lokasi: ${data.lokasi}</p>
+                        <div class="price">${data.harga}</div>
+                        <p>${data.deskripsi}</p>
+                    </div>
+                `;
+                return card;
+            }
+
+            propertiTambahan.forEach(data => {
+                const kartuBaru = buatKartuProperti(data);
+                daftarProperti.appendChild(kartuBaru);
+            });
+            
+            // --- 2C. Efek Smooth Scroll ---
+            document.querySelectorAll('.navbar a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const hash = this.getAttribute('href');
+                    const targetElement = document.querySelector(hash);
+
+                    if (targetElement) {
+                         // Gulir (scroll) halus ke elemen target
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70, // Kurangi 70px untuk navbar
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
